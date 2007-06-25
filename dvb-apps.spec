@@ -1,7 +1,7 @@
 %define name		dvb-apps
 %define version		1.1.1
 %define beta		0
-%define mdkrel		%mkrel 1
+%define mdkrel		%mkrel 2
 %define distname	linuxtv-dvb-apps
 
 %if %beta
@@ -19,7 +19,6 @@ License:	GPL
 Group:		Video
 URL:		http://linuxtv.org/dvb/
 BuildRoot:	%{_tmppath}/%{name}-buildroot
-BuildRequires:	automake1.7
 
 %description
 Various apps for DVB cards.
