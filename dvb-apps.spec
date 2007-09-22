@@ -1,13 +1,14 @@
 %define name		dvb-apps
 %define version		1.1.1
 %define beta		0
-%define mdkrel		%mkrel 2
+%define rel		2
 %define distname	linuxtv-dvb-apps
+%define scandata_rev	1136
 
 %if %beta
-%define release 0.%{beta}.%{mdkrel}
+%define release %mkrel 0.%{beta}.%{rel}
 %else
-%define release %{mdkrel}
+%define release %mkrel %{rel}
 %endif
 
 Summary:	Various apps for DVB cards
@@ -15,6 +16,10 @@ Name:		%{name}
 Version:	%{version}
 Release:	%{release}
 Source0:	http://linuxtv.org/download/dvb/%{distname}-%{version}.tar.bz2
+# hg clone http://linuxtv.org/hg/dvb-apps scan-data
+# tar -cjf scan-data-$(cd scan-data; hg tip --template {rev}).tar.bz2 scan-data/util/scan/{atsc,dvb-[cst]}
+# /bin/rm -r scan-data
+Source1:	scan-data-%{scandata_rev}.tar.bz2
 License:	GPL
 Group:		Video
 URL:		http://linuxtv.org/dvb/
@@ -24,7 +29,7 @@ BuildRoot:	%{_tmppath}/%{name}-buildroot
 Various apps for DVB cards.
 
 %prep
-%setup -q -n %distname-%version
+%setup -q -n %distname-%version -a 1
 
 %build
 %make
@@ -47,11 +52,14 @@ install -m755 scan/scan %buildroot/%{_bindir}/scandvb
 install -m755 szap/*zap %buildroot/%{_bindir}/
 install -m755 szap/femon %buildroot/%{_bindir}/
 
+cd ../scan-data/util
+# from source1:
 install -d -m755 %buildroot/%{_datadir}/%{name}/scan
 cp -pr scan/dvb-c %buildroot/%{_datadir}/%{name}/scan/
 cp -pr scan/dvb-s %buildroot/%{_datadir}/%{name}/scan/
 cp -pr scan/dvb-t %buildroot/%{_datadir}/%{name}/scan/
 cp -pr scan/atsc %buildroot/%{_datadir}/%{name}/scan/
+cd -
 
 install -d -m755 %buildroot/%{_datadir}/%{name}/av7110_loadkeys
 install -m644 av7110_loadkeys/*rc5  %buildroot/%{_datadir}/%{name}/av7110_loadkeys/
