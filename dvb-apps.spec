@@ -23,7 +23,6 @@ Source1:	scan-data-%{scandata_rev}.tar.bz2
 License:	GPL
 Group:		Video
 URL:		http://linuxtv.org/dvb/
-BuildRoot:	%{_tmppath}/%{name}-buildroot
 
 %description
 Various apps for DVB cards.
