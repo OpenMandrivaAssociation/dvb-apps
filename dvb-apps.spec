@@ -3,7 +3,7 @@
 %define beta		0
 %define rel		3
 %define distname	linuxtv-dvb-apps
-%define scandata_rev	1136
+%define scandata_rev	1181
 
 %if %beta
 %define release %mkrel 0.%{beta}.%{rel}
