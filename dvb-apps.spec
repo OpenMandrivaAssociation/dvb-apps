@@ -20,6 +20,12 @@ Source0:	http://linuxtv.org/download/dvb/%{distname}-%{version}.tar.bz2
 # tar -cjf scan-data-$(cd scan-data; hg tip --template {rev}).tar.bz2 scan-data/util/scan/{atsc,dvb-[cst]}
 # /bin/rm -r scan-data
 Source1:	scan-data-%{scandata_rev}.tar.bz2
+# (Anssi 02/2008): dvbnet tries to strip 'path/' out from 'path/dvbnet'
+# in argv[0] when showing it in commandline usage help output. The NULL
+# check is buggy as 's' has already been incremented by 1 before the check.
+# This patch removes the stripping altogether and uses the full argv[0]
+# in usage(), as GNU utilities do.
+Patch0:		dvbnet-do-not-strip-dir-from-argv0.patch
 License:	GPL
 Group:		Video
 URL:		http://linuxtv.org/dvb/
@@ -30,6 +36,7 @@ Various apps for DVB cards.
 
 %prep
 %setup -q -n %distname-%version -a 1
+%patch0 -p1
 
 %build
 %make
