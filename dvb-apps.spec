@@ -1,7 +1,7 @@
 %define name		dvb-apps
 %define version		1.1.1
 %define beta		0
-%define rel		3
+%define rel		4
 %define distname	linuxtv-dvb-apps
 %define scandata_rev	1181
 
@@ -39,7 +39,9 @@ Various apps for DVB cards.
 %patch0 -p1
 
 %build
-%make
+# (Anssi 02/2008) version.h gets written too late for dvbnet.c,
+# parallel make broken
+make
 
 %install
 rm -rf $RPM_BUILD_ROOT
