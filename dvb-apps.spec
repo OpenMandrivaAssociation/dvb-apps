@@ -1,7 +1,7 @@
 %define name		dvb-apps
 %define version		1.1.1
 %define beta		0
-%define rel		4
+%define rel		5
 %define distname	linuxtv-dvb-apps
 %define scandata_rev	1181
 
@@ -26,6 +26,8 @@ Source1:	scan-data-%{scandata_rev}.tar.bz2
 # This patch removes the stripping altogether and uses the full argv[0]
 # in usage(), as GNU utilities do.
 Patch0:		dvbnet-do-not-strip-dir-from-argv0.patch
+# (Anssi) Do not set CA to non-zero by default for VDR, from upstream hg:
+Patch1:		scan-vdr-zero-ca.patch
 License:	GPL
 Group:		Video
 URL:		http://linuxtv.org/dvb/
@@ -37,6 +39,7 @@ Various apps for DVB cards.
 %prep
 %setup -q -n %distname-%version -a 1
 %patch0 -p1
+%patch1 -p1
 
 %build
 # (Anssi 02/2008) version.h gets written too late for dvbnet.c,
