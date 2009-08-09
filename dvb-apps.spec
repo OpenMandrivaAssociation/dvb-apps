@@ -1,7 +1,7 @@
 %define name		dvb-apps
 %define version		1.1.1
 %define beta		0
-%define rel		6
+%define rel		7
 %define distname	linuxtv-dvb-apps
 %define scandata_rev	1237
 
