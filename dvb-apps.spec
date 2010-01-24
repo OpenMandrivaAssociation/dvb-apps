@@ -26,6 +26,9 @@ Source0:	http://linuxtv.org/download/dvb/%{distname}-%{version}.tar.bz2
 # in usage(), as GNU utilities do.
 Patch0:		dvbnet-do-not-strip-dir-from-argv0.patch
 Patch1:		dvb-apps-format-string.patch
+# fix transport stream id 0 on first transponder in some cases, when outputting
+# in vdr format
+Patch2:		dvb-apps-scan-fix-transport-stream-id.patch
 License:	GPL
 Group:		Video
 URL:		http://linuxtv.org/dvb/
@@ -73,6 +76,7 @@ Development files for dvb-apps, for building applications that depend on:
 %endif
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %setup_compile_flags
