@@ -29,9 +29,9 @@ Patch1:		dvb-apps-format-string.patch
 # fix transport stream id 0 on first transponder in some cases, when outputting
 # in vdr format
 Patch2:		dvb-apps-scan-fix-transport-stream-id.patch
-License:	GPL
+License:	GPLv2+
 Group:		Video
-URL:		http://linuxtv.org/dvb/
+URL:		http://www.linuxtv.org/wiki/index.php/LinuxTV_dvb-apps
 BuildRoot:	%{_tmppath}/%{name}-buildroot
 # bin/scan conflict:
 Conflicts:	nmh
