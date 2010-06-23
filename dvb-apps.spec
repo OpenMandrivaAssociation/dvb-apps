@@ -1,7 +1,7 @@
 %define name		dvb-apps
 %define version		1.1.1
 %define snapshot	1331
-%define rel		2
+%define rel		3
 %define distname	linuxtv-dvb-apps
 
 %if %snapshot
@@ -29,6 +29,9 @@ Patch1:		dvb-apps-format-string.patch
 # fix transport stream id 0 on first transponder in some cases, when outputting
 # in vdr format
 Patch2:		dvb-apps-scan-fix-transport-stream-id.patch
+# Fix czap channel line parser using %a in scanf, which doesn't work with recent
+# glibc (from upstream)
+Patch3:		dvb-apps-czap-fix-sscanf-c99-modifier.patch
 License:	GPLv2+
 Group:		Video
 URL:		http://www.linuxtv.org/wiki/index.php/LinuxTV_dvb-apps
@@ -77,6 +80,7 @@ Development files for dvb-apps, for building applications that depend on:
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %setup_compile_flags
