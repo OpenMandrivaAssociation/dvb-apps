@@ -1,7 +1,7 @@
 %define name		dvb-apps
 %define version		1.1.1
 %define snapshot	1331
-%define rel		3
+%define rel		4
 %define distname	linuxtv-dvb-apps
 
 %if %snapshot
