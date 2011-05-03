@@ -32,10 +32,12 @@ Patch2:		dvb-apps-scan-fix-transport-stream-id.patch
 # Fix czap channel line parser using %a in scanf, which doesn't work with recent
 # glibc (from upstream)
 Patch3:		dvb-apps-czap-fix-sscanf-c99-modifier.patch
+Patch4:		linuxtv-dvb-apps-1331-videodev.patch
 License:	GPLv2+
 Group:		Video
 URL:		http://www.linuxtv.org/wiki/index.php/LinuxTV_dvb-apps
 BuildRoot:	%{_tmppath}/%{name}-buildroot
+BuildRequires:	libv4l-devel
 # bin/scan conflict:
 Conflicts:	nmh
 
@@ -81,6 +83,7 @@ Development files for dvb-apps, for building applications that depend on:
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p0
 
 %build
 %setup_compile_flags
