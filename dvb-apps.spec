@@ -92,7 +92,7 @@ Development files for dvb-apps, for building applications that depend on:
 make prefix=%_prefix libdir=%_libdir includedir=%_includedir sharedir=%_datadir
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %makeinstall_std prefix=%_prefix libdir=%_libdir includedir=%_includedir sharedir=%_datadir
 
@@ -113,7 +113,7 @@ perl -pi -e "s:\./::g" README.zap
 ln -s scan %{buildroot}%{_bindir}/scandvb
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
