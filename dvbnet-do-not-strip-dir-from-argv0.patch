@@ -1,0 +1,21 @@
+diff -p -up linuxtv-dvb-apps-1331/util/dvbnet/dvbnet.c.orig linuxtv-dvb-apps-1331/util/dvbnet/dvbnet.c
+--- linuxtv-dvb-apps-1331/util/dvbnet/dvbnet.c.orig	2010-01-16 17:32:41.000000000 +0200
++++ linuxtv-dvb-apps-1331/util/dvbnet/dvbnet.c	2010-01-16 21:43:02.656149852 +0200
+@@ -149,7 +149,6 @@ void queryInterface(int fd_net)
+ void parse_args(int argc, char **argv)
+ {
+ 	int c;
+-	char *s;
+ 	op_mode = UNKNOWN;
+ 	encapsulation = DVBNET_ENCAP_MPE;
+ 	while ((c = getopt(argc, argv, "a:n:p:d:lUvh")) != EOF) {
+@@ -178,8 +177,7 @@ void parse_args(int argc, char **argv)
+ 			exit(OK);
+ 		case 'h':
+ 		default:
+-			s = strrchr(argv[0], '/') + 1;
+-			usage((s) ? s : argv[0]);
++			usage(argv[0]);
+ 			exit(FAIL);
+ 		}
+ 	}
