@@ -4,25 +4,23 @@
 # linting will fail anyway due the not-standard-release-extension .Sflo
 %define _build_pkgcheck_set %{nil}
 
-%define snapshot	1331
-%define rel		8
-%define distname	linuxtv-dvb-apps
+%define snapshot	1500
+%define rel		1
+%define distname	dvb-apps
 
 %if %{snapshot}
-%define release 8.hg%{snapshot}.%{rel}
 %else
-%define release %{rel}
 %endif
 
 Summary:	Various apps for DVB cards
 Name:		dvb-apps
 Version:	1.1.1
-Release:	%{release}
+Release:	%{rel}
 License:	GPLv2+
 Group:		Video
 Url:		http://www.linuxtv.org/wiki/index.php/LinuxTV_dvb-apps
 %if %{snapshot}
-Source0:	%{distname}-%{snapshot}.tar.bz2
+Source0:	%{distname}-%{snapshot}.tar.xz
 %else
 Source0:	http://linuxtv.org/download/dvb/%{distname}-%{version}.tar.bz2
 %endif
@@ -32,14 +30,6 @@ Source0:	http://linuxtv.org/download/dvb/%{distname}-%{version}.tar.bz2
 # This patch removes the stripping altogether and uses the full argv[0]
 # in usage(), as GNU utilities do.
 Patch0:		dvbnet-do-not-strip-dir-from-argv0.patch
-Patch1:		dvb-apps-format-string.patch
-# fix transport stream id 0 on first transponder in some cases, when outputting
-# in vdr format
-Patch2:		dvb-apps-scan-fix-transport-stream-id.patch
-# Fix czap channel line parser using %a in scanf, which doesn't work with recent
-# glibc (from upstream)
-Patch3:		dvb-apps-czap-fix-sscanf-c99-modifier.patch
-Patch4:		linuxtv-dvb-apps-1331-videodev.patch
 
 BuildRequires:	pkgconfig(libv4l2)
 # bin/scan conflict:
@@ -83,19 +73,15 @@ Development files for dvb-apps, for building applications that depend on:
 %setup -q -n %{distname}-%{version} -a 1
 %endif
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p0
 
 %build
 %setup_compile_flags
 # (Anssi 02/2008) version.h gets written too late for dvbnet.c,
 # parallel make broken
-make prefix=%_prefix libdir=%_libdir includedir=%_includedir sharedir=%_datadir
+make prefix=%{_prefix} libdir=%{_libdir} includedir=%{_includedir} sharedir=%{_datadir}
 
 %install
-%makeinstall_std prefix=%_prefix libdir=%_libdir includedir=%_includedir sharedir=%_datadir
+%makeinstall_std prefix=%{_prefix} libdir=%{_libdir} includedir=%{_includedir} sharedir=%{_datadir}
 
 install -m644 util/av7110_loadkeys/README README.av7110_loadkeys
 sed -i -e 's:./evtest:evtest:' README.av7110_loadkeys
@@ -116,23 +102,7 @@ ln -s scan %{buildroot}%{_bindir}/scandvb
 %files
 %doc README README.av7110_loadkeys README.scan util/dvbnet/net_start.*
 %doc util/dib3000-watch/README.* README.zap
-%{_bindir}/atsc_epg
-%{_bindir}/av7110_loadkeys
-%{_bindir}/azap
-%{_bindir}/czap
-%{_bindir}/dib3000-watch
-%{_bindir}/dst_test
-%{_bindir}/dvbdate
-%{_bindir}/dvbnet
-%{_bindir}/dvbscan
-%{_bindir}/dvbtraffic
-%{_bindir}/femon
-%{_bindir}/gnutv
-%{_bindir}/scan
-%{_bindir}/scandvb
-%{_bindir}/szap
-%{_bindir}/tzap
-%{_bindir}/zap
+%{_bindir}/*
 %dir %{_datadir}/dvb
 %{_datadir}/dvb/atsc
 %{_datadir}/dvb/av7110_loadkeys
