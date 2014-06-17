@@ -1,7 +1,7 @@
 # Otherwise we don't pass rpmlint control
 %define _enable_debug_packages %{nil}
 %define debug_package %{nil}
-#
+# linting will fail anyway due the not-standard-release-extension .Sflo
 %define _build_pkgcheck_set %{nil}
 
 %define snapshot	1331
