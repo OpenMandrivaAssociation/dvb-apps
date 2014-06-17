@@ -5,17 +5,19 @@
 %define _build_pkgcheck_set %{nil}
 
 %define snapshot	1500
-%define rel		1
+%define rel		2
 %define distname	dvb-apps
 
 %if %{snapshot}
+%define release 8.hg%{snapshot}.%{rel}
 %else
+%define release %{rel}
 %endif
 
 Summary:	Various apps for DVB cards
 Name:		dvb-apps
 Version:	1.1.1
-Release:	%{rel}
+Release:	%{release}
 License:	GPLv2+
 Group:		Video
 Url:		http://www.linuxtv.org/wiki/index.php/LinuxTV_dvb-apps
