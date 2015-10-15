@@ -4,6 +4,8 @@
 # linting will fail anyway due the not-standard-release-extension .Sflo
 %define _build_pkgcheck_set %{nil}
 
+%define _disable_lto 1
+
 %define snapshot	1500
 %define rel		2
 %define distname	dvb-apps
