@@ -7,7 +7,7 @@
 %define _disable_lto 1
 
 %define snapshot	1500
-%define rel		2
+%define rel		3
 %define distname	dvb-apps
 
 %if %{snapshot}
@@ -34,6 +34,8 @@ Source0:	http://linuxtv.org/download/dvb/%{distname}-%{version}.tar.bz2
 # This patch removes the stripping altogether and uses the full argv[0]
 # in usage(), as GNU utilities do.
 Patch0:		dvbnet-do-not-strip-dir-from-argv0.patch
+Patch1:		dvb-apps-1500-perl-526.patch
+Patch2:		dvb-apps-1500-dst_test-no-set-id.patch
 
 BuildRequires:	pkgconfig(libv4l2)
 # bin/scan conflict:
@@ -76,7 +78,7 @@ Development files for dvb-apps, for building applications that depend on:
 %else
 %setup -q -n %{distname}-%{version} -a 1
 %endif
-%patch0 -p1
+%autopatch -p1
 
 %build
 %setup_compile_flags
