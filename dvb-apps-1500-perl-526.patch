@@ -1,0 +1,11 @@
+--- dvb-apps-1500/util/scan/Makefile.perl526	2013-10-15 01:47:39.000000000 +0200
++++ dvb-apps-1500/util/scan/Makefile	2017-09-12 20:22:35.008468174 +0200
+@@ -25,7 +25,7 @@
+ $(objects): atsc_psip_section.c atsc_psip_section.h
+ 
+ atsc_psip_section.c atsc_psip_section.h:
+-	perl section_generate.pl atsc_psip_section.pl
++	perl section_generate.pl ./atsc_psip_section.pl
+ 
+ include ../../Make.rules
+ 
