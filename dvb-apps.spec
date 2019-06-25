@@ -18,7 +18,7 @@
 
 Summary:	Various apps for DVB cards
 Name:		dvb-apps
-Version:	1.1.1
+Version:	20110713
 Release:	%{release}
 License:	GPLv2+
 Group:		Video
