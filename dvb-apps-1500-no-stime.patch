@@ -1,0 +1,22 @@
+Index: dvb-apps-1500/util/dvbdate/dvbdate.c
+===================================================================
+--- dvb-apps-1500/util/dvbdate/dvbdate.c
++++ dvb-apps-1500/util/dvbdate/dvbdate.c	2020-03-24 23:02:57.468968167 +0100
+@@ -40,6 +40,7 @@
+ #include <fcntl.h>
+ #include <sys/ioctl.h>
+ #include <sys/poll.h>
++#include <sys/time.h>
+ #include <errno.h>
+ #include <getopt.h>
+ #include <stdarg.h>
+@@ -309,7 +310,8 @@
+  */
+ int set_time(time_t * new_time)
+ {
+-	if (stime(new_time)) {
++	struct timeval newtime = {.tv_sec = *new_time};
++	if (settimeofday(&newtime, NULL)) {
+ 		perror("Unable to set time");
+ 		return -1;
+ 	}

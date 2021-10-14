@@ -1,27 +1,15 @@
-# Otherwise we don't pass rpmlint control
-%define _enable_debug_packages %{nil}
-%define debug_package %{nil}
 # linting will fail anyway due the not-standard-release-extension .Sflo
 %define _build_pkgcheck_set %{nil}
-
-%define _disable_ld_no_undefined 1
 
 %define _disable_lto 1
 
 %define snapshot	1500
-%define rel		3
 %define distname	dvb-apps
-
-%if %{snapshot}
-%define release 8.hg%{snapshot}.%{rel}
-%else
-%define release %{rel}
-%endif
 
 Summary:	Various apps for DVB cards
 Name:		dvb-apps
 Version:	20110713
-Release:	%{release}
+Release:	8.hg%{snapshot}.4
 License:	GPLv2+
 Group:		Video
 Url:		http://www.linuxtv.org/wiki/index.php/LinuxTV_dvb-apps
@@ -38,6 +26,7 @@ Source0:	http://linuxtv.org/download/dvb/%{distname}-%{version}.tar.bz2
 Patch0:		dvbnet-do-not-strip-dir-from-argv0.patch
 Patch1:		dvb-apps-1500-perl-526.patch
 Patch2:		dvb-apps-1500-dst_test-no-set-id.patch
+Patch3:		dvb-apps-1500-no-stime.patch
 
 BuildRequires:	pkgconfig(libv4l2)
 # bin/scan conflict:
@@ -75,21 +64,16 @@ Development files for dvb-apps, for building applications that depend on:
 - libucsi
 
 %prep
-%if %{snapshot}
-%setup -q -n %{distname}-%{snapshot}
-%else
-%setup -q -n %{distname}-%{version} -a 1
-%endif
-%autopatch -p1
+%autosetup -n %{distname}-%{snapshot} -p1
 
 %build
-%setup_compile_flags
+%set_build_flags
 # (Anssi 02/2008) version.h gets written too late for dvbnet.c,
 # parallel make broken
-make prefix=%{_prefix} libdir=%{_libdir} includedir=%{_includedir} sharedir=%{_datadir}
+%make_build -j1 prefix=%{_prefix} libdir=%{_libdir} includedir=%{_includedir} sharedir=%{_datadir}
 
 %install
-%makeinstall_std prefix=%{_prefix} libdir=%{_libdir} includedir=%{_includedir} sharedir=%{_datadir}
+%make_install prefix=%{_prefix} libdir=%{_libdir} includedir=%{_includedir} sharedir=%{_datadir}
 
 install -m644 util/av7110_loadkeys/README README.av7110_loadkeys
 sed -i -e 's:./evtest:evtest:' README.av7110_loadkeys
