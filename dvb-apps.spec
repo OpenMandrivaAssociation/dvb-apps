@@ -12,7 +12,7 @@ Version:	20110713
 Release:	8.hg%{snapshot}.4
 License:	GPLv2+
 Group:		Video
-Url:		http://www.linuxtv.org/wiki/index.php/LinuxTV_dvb-apps
+Url:		https://www.linuxtv.org/wiki/index.php/LinuxTV_dvb-apps
 %if %{snapshot}
 Source0:	%{distname}-%{snapshot}.tar.xz
 %else
