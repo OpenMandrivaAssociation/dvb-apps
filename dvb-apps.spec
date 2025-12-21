@@ -28,6 +28,7 @@ Patch1:		dvb-apps-1500-perl-526.patch
 Patch2:		dvb-apps-1500-dst_test-no-set-id.patch
 Patch3:		dvb-apps-1500-no-stime.patch
 
+BuildRequires:	make
 BuildRequires:	pkgconfig(libv4l2)
 # bin/scan conflict:
 Conflicts:	nmh
